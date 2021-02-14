@@ -1,6 +1,7 @@
-let mysql = require('mysql')
+const mysql = require('mysql')
 
-let connection = mysql.createConnection({
+
+const connection =  mysql.createConnection({
     host: "blpho4emdxxveonnl9kq-mysql.services.clever-cloud.com",
     user: "uitiypc2lx8x45ov",
     password: "eL9rkHhl3ILu0VgMMxlu",
@@ -8,4 +9,5 @@ let connection = mysql.createConnection({
 })
 
 connection.connect();
+
 module.exports = connection;
