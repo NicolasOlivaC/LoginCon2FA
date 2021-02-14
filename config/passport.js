@@ -27,6 +27,7 @@ passport.use( '2FA', new PassportLocal( async (username, password, done)=>{
         encoding: 'ascii',
         token: password
       });
+      console.log("el estado es: ", verificar);
       (verificar) ? done(null, usuario[0].Username) : done(null, false);
     }
   })

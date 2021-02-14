@@ -26,18 +26,7 @@ router.get('/crear2FA', autenticacion.isLoggedIn, (req, res) => {
       })
     }
   })
-  // connection.query('UPDATE users SET Secreto = ?  WHERE Username = ?', [secreto.ascii, user[0].Username], (error, resultado)=>{
-  //   if(error){
-  //     console.log(error);
-  //   }
-  //   else{
-  //     qrcode.toDataURL(secreto.otpauth_url, (error, datos) => {
-  //       res.render('qr_code', {
-  //        data: `${datos}`
-  //       })
-  //     })    
-  //   }
-  // })
+
 })
 
 router.post('/comprobar', isLoggedIn, async (req, res) => {
@@ -56,6 +45,7 @@ router.post('/comprobar', isLoggedIn, async (req, res) => {
       if (verificar) {
         connection.query('UPDATE users SET Estado2FA = ? WHERE Username = ?', [true, user[0].Username], (error, resultado) => {
           if (error) {
+            req.flash('succes', '2FA Error al implementar 2FA, vuelva a iniciar el proceso de Configuración para volver a utilizar su clave 2FA')
             res.redirect('/')
           }
           else {
@@ -65,6 +55,7 @@ router.post('/comprobar', isLoggedIn, async (req, res) => {
         })
       }
       else {
+        req.flash('succes', '2FA Error al implementar 2FA, vuelva a iniciar el proceso de Configuración para volver a utilizar su clave 2FA')
         res.redirect('/')
       }
     }
@@ -73,9 +64,9 @@ router.post('/comprobar', isLoggedIn, async (req, res) => {
 
 router.post('/validar', autenticacion.isNotLoggedIn, passport.authenticate('2FA', {
   successRedirect: '/',
-  failureRedirect: '/login'
+  failureRedirect: '/login',
+  failureFlash: true
 }))
-
 
 
 

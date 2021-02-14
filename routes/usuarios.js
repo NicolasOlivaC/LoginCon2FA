@@ -10,7 +10,6 @@ router.get('/login', autenticacion.isNotLoggedIn, (req, res) => {
   res.render('login', {
     mensaje: req.flash('succes')
   })
-
 })
 
 router.post('/login1', autenticacion.isNotLoggedIn, async (req, res, next) => {
